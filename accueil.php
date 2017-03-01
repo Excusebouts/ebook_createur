@@ -13,7 +13,7 @@
         <!-- CUSTOM STYLES-->
     <link href="assets/css/custom.css" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
      <!-- TABLE STYLES-->
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 </head>
@@ -71,7 +71,7 @@
                         </h4>
                     </div>
                     <div id="collapseTwo" class="panel-collapse in" style="height: auto;">
-                    	<form method="post" action="services/createur.php">
+                    	<form method="post" action="services/createur.php" enctype="multipart/form-data">
 	                        <div class="panel-body">
 								<div class="form-group">
 									<label>Titre de l'E-book</label>
@@ -93,7 +93,7 @@
 									<label>Derniere de couverture</label>
 									<input type="file" name="page3"/>
 								</div>
-								<button class="btn btn-default">Ajouter une page</button>
+								<button type="button" id="addPage" class="btn btn-default">Ajouter une page</button>
 								<button type="reset" class="btn btn-primary">Suprimer une page</button>
 
 								<!--  Modals-->
@@ -204,9 +204,12 @@
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-      <!-- CUSTOM SCRIPTS -->
+
+    <script src="assets/js/accueil.js"></script>
+    <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
-    
+
+   
    
 </body>
 </html>

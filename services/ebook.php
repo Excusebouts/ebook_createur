@@ -1,7 +1,8 @@
 <?php
 
-require_once('constantes.php');
+require_once('parametres.php');
 require_once('utils.php');
+require_once('image.php');
 
 class Ebook {
 
@@ -13,16 +14,28 @@ class Ebook {
 
 	protected $index;
 
-	public function __construct($titre) {
+	public function __construct($titre,$images) {		
 		$this->titre = $titre;
+		$this->initImages($images);
 		$this->genererChemin();
 		$this->genererIndex();
+	}
+
+	private function initImages($images) {
+		$i = 0;
+		foreach($images as $image) {
+			$this->images[$i] = new Image($image, $i);
+			$i++;
+		}		
 	}
 
 	public function creerEbook() {
 		if(true == mkdir($this->chemin)) {
 			echo "Dossier ".$this->chemin." créé";
-			Utils::copy_dir(Constantes::DOSSIER_TEMPLATE,$this->chemin);
+			Utils::copy_dir(Parametres::DOSSIER_TEMPLATE,$this->chemin);
+			for($i = 0 ; $i < sizeof($this->images) ; $i++) {
+				$this->images[$i]->genererImage();
+			}
 		} else {
 			echo "Impossible de créer le dossier ".$this->chemin;
 		}
@@ -34,11 +47,14 @@ class Ebook {
 	}
 
 	private function genererChemin() {
-		$this->chemin = Constantes::DOSSIER_EBOOK.$this->titre."/";
+		$this->chemin = Parametres::DOSSIER_EBOOK.$this->titre."/";
+		for($i = 0 ; $i < sizeof($this->images) ; $i++) {
+			$this->images[$i]->genererChemin($this->chemin);
+		}
 	}
 
 	private function genererIndex() {
-		$this->index = $this->chemin.Constantes::INDEX_EBOOK;
+		$this->index = $this->chemin.Parametres::INDEX_EBOOK;
 	}
 
 	public function getIndex() {
