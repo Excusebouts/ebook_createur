@@ -79,22 +79,22 @@
 								</div>
 								<div class="form-group">
 									<label>Premiere de couverture</label>
-									<input type="file" name="page0" />
+									<input type="file" name="Page0" />
 								</div>
 								<div class="form-group">
 									<label>Page 1</label>
-									<input type="file" name="page1"/>
+									<input type="file" name="Page1"/>
 								</div>
-								<div class="form-group">
+								<div id="pageAdded2" class="form-group">
 									<label>Page 2</label>
-									<input type="file" name="page2"/>
+									<input type="file" name="Page2"/>
 								</div>
 								<div class="form-group">
 									<label>Derniere de couverture</label>
-									<input type="file" name="page3"/>
+									<input type="file" name="PageEnd"/>
 								</div>
 								<button type="button" id="addPage" class="btn btn-default">Ajouter une page</button>
-								<button type="reset" class="btn btn-primary">Suprimer une page</button>
+								<button type="button" id="removePage" class="btn btn-primary">Suprimer une page</button>
 
 								<!--  Modals-->
 								<div class="form-group" style="margin-top:20px;">

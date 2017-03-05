@@ -3,6 +3,7 @@
 require_once('parametres.php');
 require_once('utils.php');
 require_once('image.php');
+require_once('writer.php');
 
 class Ebook {
 
@@ -14,11 +15,14 @@ class Ebook {
 
 	protected $index;
 
+	protected $writer;
+
 	public function __construct($titre,$images) {		
 		$this->titre = $titre;
 		$this->initImages($images);
 		$this->genererChemin();
 		$this->genererIndex();
+		$this->writer = new Writer($this->index);
 	}
 
 	private function initImages($images) {
@@ -36,6 +40,7 @@ class Ebook {
 			for($i = 0 ; $i < sizeof($this->images) ; $i++) {
 				$this->images[$i]->genererImage();
 			}
+			$this->writer->ecrireFichier();
 		} else {
 			echo "Impossible de créer le dossier ".$this->chemin;
 		}
