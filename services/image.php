@@ -18,6 +18,8 @@ class Image {
 
 	protected $chemin_large;
 
+	protected $nom_thumb;
+
 	protected $chemin_thumb;
 
 	protected $erreur;
@@ -48,10 +50,19 @@ class Image {
 	public function genererChemin($chemin) {
 		$this->chemin = $chemin.Parametres::DOSSIER_IMAGES.$this->page.$this->extension;
 		$this->chemin_large = $chemin.Parametres::DOSSIER_IMAGES.$this->page.Parametres::EXTENSION_IMAGE_LARGE.$this->extension;
-		$this->chemin_thumb = $chemin.Parametres::DOSSIER_IMAGES.$this->page.Parametres::EXTENSION_IMAGE_THUMB.$this->extension;
+		$this->nom_thumb = $this->page.Parametres::EXTENSION_IMAGE_THUMB.$this->extension;
+		$this->chemin_thumb = $chemin.Parametres::DOSSIER_IMAGES.$this->nom_thumb;
 	}
 
 	public function isImageActive() {
 		return $this->erreur == 0;
+	}
+
+	public function getNomThumb() {
+		return $this->nom_thumb;
+	}
+
+	public function getPage() {
+		return $this->page;
 	}
 }

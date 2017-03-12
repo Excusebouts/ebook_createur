@@ -10,6 +10,8 @@ class Parametres {
 
 	const INDEX_EBOOK = "ebook.html";
 
+	const INDEX_EBOOK_TEMPLATE = "ebook_template.html";
+
 	const EXTENSION_IMAGE_LARGE = "-large";
 
 	const EXTENSION_IMAGE_THUMB = "-thumb";

@@ -15,6 +15,8 @@ class Ebook {
 
 	protected $index;
 
+	protected $index_template;
+
 	protected $writer;
 
 	public function __construct($titre,$images) {		
@@ -22,7 +24,7 @@ class Ebook {
 		$this->initImages($images);
 		$this->genererChemin();
 		$this->genererIndex();
-		$this->writer = new Writer($this->index);
+		$this->writer = new Writer($this->index_template, $this->index, $this->titre, $this->images);
 	}
 
 	private function initImages($images) {
@@ -41,6 +43,7 @@ class Ebook {
 				$this->images[$i]->genererImage();
 			}
 			$this->writer->ecrireFichier();
+			unlink($this->index_template);
 		} else {
 			echo "Impossible de créer le dossier ".$this->chemin;
 		}
@@ -60,6 +63,7 @@ class Ebook {
 
 	private function genererIndex() {
 		$this->index = $this->chemin.Parametres::INDEX_EBOOK;
+		$this->index_template = $this->chemin.Parametres::INDEX_EBOOK_TEMPLATE;
 	}
 
 	public function getIndex() {

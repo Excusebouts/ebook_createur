@@ -7,7 +7,7 @@ if(isset($_POST["titre"]) /*&& !isset($_FILES['page0']) && !isset($_FILES['page1
 	$ebook = new Ebook($_POST["titre"],$_FILES);
 	$ebook->creerEbook();	
 	
-	//header("Location: ".$ebook->getIndex());
+	header("Location: ".$ebook->getIndex());
 }
 
 
