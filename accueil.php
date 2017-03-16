@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<?php
+	require_once('services/services.php');
+?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
@@ -17,7 +20,7 @@
      <!-- TABLE STYLES-->
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 </head>
-<body>
+<body>	
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -71,7 +74,8 @@
                         </h4>
                     </div>
                     <div id="collapseTwo" class="panel-collapse in" style="height: auto;">
-                    	<form method="post" action="services/createur.php" enctype="multipart/form-data">
+                    	<form method="post" action="services/services.php" enctype="multipart/form-data">
+                    		<input type="hidden" name="creation" value="creation">
 	                        <div class="panel-body">
 								<div class="form-group">
 									<label>Titre de l'E-book</label>
@@ -94,32 +98,12 @@
 									<input type="file" name="PageEnd"/>
 								</div>
 								<button type="button" id="addPage" class="btn btn-default">Ajouter une page</button>
-								<button type="button" id="removePage" class="btn btn-primary">Suprimer une page</button>
-
-								<!--  Modals-->
+								<button type="button" id="removePage" class="btn btn-primary">Supprimer une page</button>	
 								<div class="form-group" style="margin-top:20px;">
 									<button type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 									  Générer l'E-book
 									</button>
-									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title" id="myModalLabel">Modal title Here</h4>
-												</div>
-												<div class="modal-body">
-													Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Save changes</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End Modals-->
+								</div>							
 							</form>							 
 						</div>
                     </div>
@@ -132,6 +116,10 @@
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse">
                         <div class="panel-body">
+                        <?php
+							$liste_ebooks = recupererListeEbook();			
+							if(sizeof($liste_ebooks) > 0) {								
+						?>
                         <div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 								<thead>
@@ -142,49 +130,44 @@
 										<th>Supression</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody>	
+									<?php										
+										foreach($liste_ebooks as $ebook) {											
+									?>								
 									<tr class="odd">
-										<td>Exemple : E-book modèle</td>
+										<td><?php echo $ebook->getTitre() ?></td>
 										<td class="center">
-											<a href="#" class="btn btn-primary btn-xs">PDF</a>
-											<a href="#" class="btn btn-primary btn-xs">Ebook</a>
+											<form method="post" action="services/services.php" target="_blank">
+												<a href="<?php echo $ebook->getPDF() ?>" target="_blank" class="btn btn-primary btn-xs">PDF</a>											
+												<input type="hidden" name="zip" value="<?php echo $ebook->getTitre() ?>">
+												<button type="submit" class="btn btn-primary btn-xs">Ebook</button>
+											</form>
 										</td>
 										<td class="center">
-											<a href="../historique/ebook1/ebook.html" target="_blank" class="btn btn-success btn-xs">Visualiser</a>
+											<a href="<?php echo $ebook->getIndex() ?>" target="_blank" class="btn btn-success btn-xs">Visualiser</a>
 										</td>
 										<td class="center">
-											<a href="#" class="btn btn-danger btn-xs">Supprimer</a>
+											<form method="post" action="services/services.php">
+												<input type="hidden" name="suppression" value="<?php echo $ebook->getTitre() ?>">
+												<button type="submit" class="btn btn-danger btn-xs">Supprimer</button>
+											</form>
 										</td>
-									</tr>
-									<tr class="odd">
-										<td>Exemple : E-book modèle</td>
-										<td class="center">
-											<a href="#" class="btn btn-primary btn-xs">PDF</a>
-											<a href="#" class="btn btn-primary btn-xs">Ebook</a>
-										</td>
-										<td class="center">
-											<a href="../historique/ebook1/ebook.html" class="btn btn-success btn-xs">Visualiser</a>
-										</td>
-										<td class="center">
-											<a href="#" class="btn btn-danger btn-xs">Supprimer</a>
-										</td>
-									</tr>
-									<tr class="odd">
-										<td>Exemple : E-book modèle</td>
-										<td class="center">
-											<a href="#" class="btn btn-primary btn-xs">PDF</a>
-											<a href="#" class="btn btn-primary btn-xs">Ebook</a>
-										</td>
-										<td class="center">
-											<a href="../historique/ebook1/ebook.html" class="btn btn-success btn-xs">Visualiser</a>
-										</td>
-										<td class="center">
-											<a href="#" class="btn btn-danger btn-xs">Supprimer</a>
-										</td>
-									</tr>
+									</tr>		
+									<?php
+										}
+									?>							
 								</tbody>
 							</table>
 						</div>
+						<?php
+							} else {
+						?>
+						<div class="col-md-12">
+							Aucun ebook n'a été créé.
+						</div>
+						<?php
+							} 
+						?>
 						</div>
                     </div>
                 </div>
