@@ -1,0 +1,7 @@
+AuthName "Visualisation des ebooks proteges"
+AuthType Basic
+AuthUserFile "/var/www/html/ebook/.htpasswd"
+Require valid-user
+
+RewriteEngine on
+ErrorDocument 401 /index.php

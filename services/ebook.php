@@ -92,8 +92,16 @@ class Ebook {
 		$this->index_template = $this->chemin.Parametres::INDEX_EBOOK_TEMPLATE;
 	}
 
+	private function getCheminSession($session, $domaine) {
+		return Parametres::URL_HTTP.$session->getAuthentificationHTAccess().'@'.$domaine;
+	}
+
 	public function getIndex() {
 		return $this->index;
+	}
+
+	public function getIndexSession($session, $domaine) {
+		return $this->getCheminSession($session, $domaine).Parametres::DOSSIER_EBOOK_NOM.$this->titre.'/'.Parametres::INDEX_EBOOK;
 	}
 
 	public function getTitre() {
@@ -107,6 +115,10 @@ class Ebook {
 	public function getCheminZip() {
 		return $this->chemin_zip;
 	}
+
+	public function getCheminZipSession($session, $domaine) {
+		return $this->getCheminSession($session,$domaine).Parametres::DOSSIER_EBOOK_NOM.'/'.$this->nom_zip;
+	}	
 }
 
 ?>
