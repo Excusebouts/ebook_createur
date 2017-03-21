@@ -12,6 +12,8 @@ class Session {
 
 	protected $connecte;
 
+	protected $bdd;
+
 	public function __construct($pseudo = null, $mot_de_passe = null) {
 		$this->id = "";
 		$this->pseudo = $pseudo;
@@ -19,8 +21,38 @@ class Session {
 		$this->connecte = false;
 	}
 
-	public function connexion() {	
-		if($this->pseudo == "test" && $this->mot_de_passe == "test") {		
+	private function connectionBDD() {
+		try {
+			$this->bdd = new PDO('mysql:host='.Parametres::BDD_URL.';dbname='.Parametres::BDD_NOM.';charset=utf8', Parametres::BDD_UTILISATEUR, Parametres::BDD_PASS);
+		}
+		catch (Exception $e) {
+	        die('Erreur : ' . $e->getMessage());
+		}
+	}
+
+	private function utilisateurExist() {
+		$this->connectionBDD();
+
+		$req = $this->bdd->prepare('SELECT id, pass FROM Utilisateur WHERE pseudo = :pseudo');
+		$req->execute(array(
+		    'pseudo' => $this->pseudo
+	    ));
+
+		$resultat = $req->fetch();
+		$this->bdd = null;
+
+		if(!empty($resultat)) {				
+			if(crypt($this->mot_de_passe, $resultat['pass']) == $resultat['pass']) {
+				echo "test";
+				return true;
+			} 
+		}
+		
+		return false;
+	}
+
+	public function connexion() {			
+		if($this->utilisateurExist() == true) {		
 			session_start();
 			$this->connecte = true;			
 		}
