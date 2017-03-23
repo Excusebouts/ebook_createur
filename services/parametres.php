@@ -44,6 +44,10 @@ class Parametres {
 
 	const SERVICE_LECTURE_EBOOK = "lire_ebook";
 
+	const SERVICE_EBOOK_CREE = "ebook_create";
+
+	const SERVICE_EBOOK_CREE_NOM = "ebook_create_name";
+
 	const SERVICE_CONNEXION = "connexion";
 
 	const SERVICE_DECONNEXION = "deconnexion";

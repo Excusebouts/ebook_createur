@@ -30,7 +30,7 @@ if(!empty($_POST[Parametres::SERVICE_CREATION])) {
 	$ebook = new Ebook($_POST["titre"],$_FILES);
 	$ebook->creerEbook();	
 	
-	header("Location: ".$ebook->getIndex());
+	header("Location: ".Parametres::CHEMIN_DASHBORD.'?'.Parametres::SERVICE_EBOOK_CREE.'=true&'.Parametres::SERVICE_EBOOK_CREE_NOM.'='.$ebook->getTitre());
 }
 
 if(!empty($_POST[Parametres::SERVICE_ZIP])) {
@@ -55,7 +55,7 @@ if(!empty($_POST[Parametres::SERVICE_SUPPRESSION])) {
 	$ebook_a_supprimer = new Ebook($_POST[Parametres::SERVICE_SUPPRESSION]);
 	$ebook_a_supprimer->supprimerEbook();	
 
-	header("Location:".$_SERVER['HTTP_REFERER']);
+	header("Location:".Parametres::CHEMIN_DASHBORD);
 }
 
 if(!empty($_POST[Parametres::SERVICE_LECTURE_EBOOK])) {

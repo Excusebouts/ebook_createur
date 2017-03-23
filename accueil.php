@@ -22,7 +22,7 @@
      <!-- TABLE STYLES-->
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 </head>
-<body>	
+<body>		
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -32,10 +32,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="accueil.html">DAL'ALU</a> 
+                <a class="navbar-brand" href="accueil.php">DAL'ALU</a> 
             </div>
             <form method="post" action="services/services.php">
-				<div style="color: white;	padding: 15px 50px 5px 50px; float: right;font-size: 16px;"> Bonjour Dal'Alu &nbsp; 				
+				<div style="color: white;	padding: 15px 50px 5px 50px; float: right;font-size: 16px;"> Bonjour <?php echo Session::getSession()->getPseudo() ?> &nbsp; 				
 	    			<input type="hidden" name="deconnexion" value="deconnexion">
 					<button type="submit" class="btn btn-danger square-btn-adjust">Déconnexion</button> 				
 				</div>
@@ -61,8 +61,8 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Blank Page</h2>   
-                        <h5>Welcome Jhon Deo , Love to see you back. </h5>                       
+                     <h2>Gestion des ebooks</h2>   
+                        <h5>Bonjour <?php echo Session::getSession()->getPseudo() ?>, à partir de cette interface vous pouvez gérer vos ebooks. </h5>                       
                     </div>
                 </div>
                  <!-- /. ROW  -->
@@ -75,7 +75,7 @@
                         </h4>
                     </div>
                     <div id="collapseTwo" class="panel-collapse in" style="height: auto;">
-                    	<form method="post" action="services/services.php" enctype="multipart/form-data">
+                    	<form id="formGenerateEbook" method="post" action="services/services.php" enctype="multipart/form-data">
                     		<input type="hidden" name="creation" value="creation">
 	                        <div class="panel-body">
 								<div class="form-group">
@@ -101,9 +101,11 @@
 								<button type="button" id="addPage" class="btn btn-default">Ajouter une page</button>
 								<button type="button" id="removePage" class="btn btn-primary">Supprimer une page</button>	
 								<div class="form-group" style="margin-top:20px;">
-									<button type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+									<button id="generateEbook" type="button" class="btn btn-primary btn-lg col-md-2">
 									  Générer l'E-book
 									</button>
+									<p class="text-danger col-md-10" id="generateError"></p>
+									
 								</div>							
 							</form>							 
 						</div>
@@ -173,17 +175,35 @@
 							} 
 						?>
 						</div>
-                    </div>
-                </div>
+                    	</div>
+                	</div>
+				</div>
+    		</div>						
+     <!-- /. PAGE INNER  -->
+    	</div>
+ <!-- /. PAGE WRAPPER  -->
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-show="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Création de l'ebook</h4>
+				</div>
+				<div class="modal-body">
+					Félicitation ! Votre ebook a bien été créé.
+				</div>
+				<div class="modal-footer">
+					<form method="post" action="services/services.php" target="_blank">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>					
+						<input type="hidden" name="lire_ebook" value="<?php echo $_GET[Parametres::SERVICE_EBOOK_CREE_NOM] ?>">
+						<button type="submit" class="btn btn-primary">Visualiser</button>
+					</form>
+				</div>
 			</div>
-    </div>
-	
-							
-             <!-- /. PAGE INNER  -->
-            </div>
-         <!-- /. PAGE WRAPPER  -->
-        </div>
-     <!-- /. WRAPPER  -->
+		</div>
+	</div>	
+    <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-1.10.2.js"></script>
@@ -194,9 +214,13 @@
 
     <script src="assets/js/accueil.js"></script>
     <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
-
-   
-   
+    <script src="assets/js/custom.js"></script>   
+    <?php
+		if(!empty($_GET[Parametres::SERVICE_EBOOK_CREE])) {
+			echo '<input type="hidden" name="ebookCreate" value="true">';
+		} else {
+			echo '<input type="hidden" name="ebookCreate" value="false">';
+		}
+	?>
 </body>
 </html>

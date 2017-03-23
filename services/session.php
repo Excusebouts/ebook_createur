@@ -73,6 +73,10 @@ class Session {
 		return $this->pseudo.':'.$this->mot_de_passe;		
 	}	
 
+	public function getPseudo() {
+		return $this->pseudo;
+	}
+
 	public static function verificationSession() {
 		session_start();
 
@@ -84,7 +88,9 @@ class Session {
 	}
 
 	public static function getSession() {
-		session_start();
+		if(session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
 
 		return $_SESSION[Parametres::SESSION_VARIABLE];
 	}
