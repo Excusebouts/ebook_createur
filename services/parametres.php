@@ -36,6 +36,24 @@ class Parametres {
 
 	const FICHIER_PDF = "PDF.pdf";
 
+	const PDF_AUTEUR = "Dal'Alu";
+
+	const PDF_SUJET = "ebook";
+
+	const PDF_X = "0";
+
+	const PDF_Y = "0";
+
+	const PDF_HAUTEUR = "297";
+
+	const PDF_LARGEUR = "210";
+
+	const PDF_RESOLUTION = "300";
+
+	const PDF_HEADER_MARGIN = "0";
+
+	const PDF_FOOTER_MARGIN = "0";
+
 	const SESSION_VARIABLE = "session";
 
 	const SESSION_IDENTIFIANT = "pseudo";
@@ -57,6 +75,8 @@ class Parametres {
 	const SERVICE_CREATION = "creation";
 
 	const SERVICE_ZIP = "zip";
+
+	const SERVICE_PDF = "pdf";
 }
 
 ?>

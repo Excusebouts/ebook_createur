@@ -58,6 +58,10 @@ class Image {
 		return $this->erreur == 0;
 	}
 
+	public function getCheminImage() {
+		return $this->chemin;
+	}
+
 	public function getNomThumb() {
 		return $this->nom_thumb;
 	}

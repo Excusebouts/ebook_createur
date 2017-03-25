@@ -51,6 +51,13 @@ if(!empty($_POST[Parametres::SERVICE_ZIP])) {
 	}
 }
 
+if(!empty($_POST[Parametres::SERVICE_PDF])) {
+	verificationConnexion();
+	$ebook_a_lire = new Ebook($_POST[Parametres::SERVICE_PDF]);	
+
+	header('Location: '.$ebook_a_lire->getPDFSession(Session::getSession(),$_SERVER['HTTP_HOST']));
+}
+
 if(!empty($_POST[Parametres::SERVICE_SUPPRESSION])) {
 	$ebook_a_supprimer = new Ebook($_POST[Parametres::SERVICE_SUPPRESSION]);
 	$ebook_a_supprimer->supprimerEbook();	

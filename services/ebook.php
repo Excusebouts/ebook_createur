@@ -4,6 +4,7 @@ require_once('parametres.php');
 require_once('utils.php');
 require_once('image.php');
 require_once('writer.php');
+require_once('pdf.php');
 
 class Ebook {
 
@@ -12,8 +13,6 @@ class Ebook {
 	protected $images = array();
 
 	protected $chemin;
-
-	protected $chemin_pdf;
 
 	protected $nom_zip;
 
@@ -25,6 +24,8 @@ class Ebook {
 
 	protected $writer;
 
+	protected $pdf;
+
 	public function __construct($titre,$images = null) {		
 		$this->titre = $titre;		
 		if($images != null) {
@@ -33,8 +34,9 @@ class Ebook {
 		$this->genererChemin();
 		$this->genererIndex();
 		if($images != null) {			
-			$this->writer = new Writer($this->index_template, $this->index, $this->titre, $this->images);
+			$this->writer = new Writer($this->index_template, $this->index, $this->titre, $this->images);			
 		}
+		$this->pdf = new Pdf($this->images, $this->chemin, $this->titre);
 	}
 
 	private function initImages($images) {
@@ -47,13 +49,14 @@ class Ebook {
 
 	public function creerEbook() {
 		if(true == mkdir($this->chemin)) {
-			echo "Dossier ".$this->chemin." créé";
+			//echo "Dossier ".$this->chemin." créé";
 			Utils::copy_dir(Parametres::DOSSIER_TEMPLATE,$this->chemin);
 			for($i = 0 ; $i < sizeof($this->images) ; $i++) {
 				$this->images[$i]->genererImage();
 			}
 			$this->writer->ecrireFichier();
 			unlink($this->index_template);
+			$this->pdf->genererPDF();
 		} else {
 			echo "Impossible de créer le dossier ".$this->chemin;
 		}
@@ -79,8 +82,7 @@ class Ebook {
 	private function genererChemin() {
 		$this->chemin = Parametres::DOSSIER_EBOOK.$this->titre."/";
 		$this->nom_zip = $this->titre.Parametres::EXTENSION_ZIP;
-		$this->chemin_zip = Parametres::DOSSIER_EBOOK.$this->nom_zip;
-		$this->chemin_pdf = $this->chemin.Parametres::FICHIER_PDF;
+		$this->chemin_zip = Parametres::DOSSIER_EBOOK.$this->nom_zip;		
 
 		for($i = 0 ; $i < sizeof($this->images) ; $i++) {
 			$this->images[$i]->genererChemin($this->chemin);
@@ -109,7 +111,11 @@ class Ebook {
 	}
 
 	public function getPDF() {
-		return $this->chemin_pdf;
+		return $this->pdf->getCheminPDF();
+	}
+
+	public function getPDFSession($session, $domaine) {
+		return $this->getCheminSession($session, $domaine).Parametres::DOSSIER_EBOOK_NOM.$this->titre.'/'.Parametres::FICHIER_PDF;
 	}
 
 	public function getCheminZip() {

@@ -140,8 +140,11 @@
 									<tr class="odd">
 										<td><?php echo $ebook->getTitre() ?></td>
 										<td class="center">
-											<form method="post" action="services/services.php" target="_blank">
-												<a href="<?php echo $ebook->getPDF() ?>" target="_blank" class="btn btn-primary btn-xs">PDF</a>											
+											<form style="display:inline-block;" method="post" action="services/services.php" target="_blank">										
+												<input type="hidden" name="pdf" value="<?php echo $ebook->getTitre() ?>">
+												<button type="submit" class="btn btn-primary btn-xs">PDF</button>
+											</form>
+											<form style="display:inline-block;" method="post" action="services/services.php" target="_blank">											
 												<input type="hidden" name="zip" value="<?php echo $ebook->getTitre() ?>">
 												<button type="submit" class="btn btn-primary btn-xs">Ebook</button>
 											</form>
