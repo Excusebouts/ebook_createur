@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Classe statique contenant les paramètres de modification du template
+ *
+ * version     : 1.0.0
+ * @author     Vibey Cédric (cedric.vibey@gmail.com)
+ */
 class Template {
 
 	const TEMPLATE_WRITER_AJOUT_TITRE = "template_ajout_titre";

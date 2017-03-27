@@ -3,6 +3,16 @@
 require_once('ebook.php');
 require_once('session.php');
 
+/**
+ * Contient la liste des services disponibles pour l'application d'ebook
+ *
+ * version     : 1.0.0
+ * @author     Vibey Cédric (cedric.vibey@gmail.com)
+ */
+
+/*
+Service permettant de gérer la connexion d'un utilisateur
+ */
 if(!empty($_POST[Parametres::SERVICE_CONNEXION])) {
 	$session = new Session($_POST[Parametres::SESSION_IDENTIFIANT],$_POST[Parametres::SESSION_MOT_DE_PASSE]);
 	$session->connexion();
@@ -15,6 +25,9 @@ if(!empty($_POST[Parametres::SERVICE_CONNEXION])) {
 	}
 }
 
+/*
+Service permettant de gérer la déconnexion d'un utilisateur
+ */
 if(!empty($_POST[Parametres::SERVICE_DECONNEXION])) {
 	$session = Session::getSession();
 	$session->deconnexion();
@@ -26,6 +39,9 @@ if(!empty($_POST[Parametres::SERVICE_DECONNEXION])) {
 	}
 }
 
+/*
+Service permettant de créer un nouvel ebook
+ */
 if(!empty($_POST[Parametres::SERVICE_CREATION])) {		
 	$ebook = new Ebook($_POST["titre"],$_FILES);
 	$ebook->creerEbook();	
@@ -33,6 +49,9 @@ if(!empty($_POST[Parametres::SERVICE_CREATION])) {
 	header("Location: ".Parametres::CHEMIN_DASHBORD.'?'.Parametres::SERVICE_EBOOK_CREE.'=true&'.Parametres::SERVICE_EBOOK_CREE_NOM.'='.$ebook->getTitre());
 }
 
+/*
+Service permettant de zipper un ebook
+ */
 if(!empty($_POST[Parametres::SERVICE_ZIP])) {
 	verificationConnexion();	
 	$ebook_a_zipper = new Ebook($_POST[Parametres::SERVICE_ZIP]);
@@ -51,6 +70,9 @@ if(!empty($_POST[Parametres::SERVICE_ZIP])) {
 	}
 }
 
+/*
+Service permettant d'afficher un pdf de l'ebook
+ */
 if(!empty($_POST[Parametres::SERVICE_PDF])) {
 	verificationConnexion();
 	$ebook_a_lire = new Ebook($_POST[Parametres::SERVICE_PDF]);	
@@ -58,6 +80,9 @@ if(!empty($_POST[Parametres::SERVICE_PDF])) {
 	header('Location: '.$ebook_a_lire->getPDFSession(Session::getSession(),$_SERVER['HTTP_HOST']));
 }
 
+/*
+Service permettant de supprimer un ebook
+ */
 if(!empty($_POST[Parametres::SERVICE_SUPPRESSION])) {
 	$ebook_a_supprimer = new Ebook($_POST[Parametres::SERVICE_SUPPRESSION]);
 	$ebook_a_supprimer->supprimerEbook();	
@@ -65,6 +90,9 @@ if(!empty($_POST[Parametres::SERVICE_SUPPRESSION])) {
 	header("Location:".Parametres::CHEMIN_DASHBORD);
 }
 
+/*
+Service permettant d'afficher un ebook
+ */
 if(!empty($_POST[Parametres::SERVICE_LECTURE_EBOOK])) {
 	verificationConnexion();
 	$ebook_a_lire = new Ebook($_POST[Parametres::SERVICE_LECTURE_EBOOK]);	
@@ -72,6 +100,9 @@ if(!empty($_POST[Parametres::SERVICE_LECTURE_EBOOK])) {
 	header('Location: '.$ebook_a_lire->getIndexSession(Session::getSession(),$_SERVER['HTTP_HOST']));
 }
 
+/*
+Fonction qui permet de récupérer la liste des ebooks disponibles
+ */
 function recupererListeEbook() {
 	$liste_ebook = array();
 	$chemin_ebooks = dirname(__FILE__)."/".Parametres::DOSSIER_EBOOK;
@@ -89,6 +120,9 @@ function recupererListeEbook() {
 	return $liste_ebook;
 }
 
+/*
+Fonction qui vérifie qu'un utilisateur est bien connecté
+ */
 function verificationConnexion() {
 	if(Session::verificationSession() == false) {		
 		header('Location:'.Parametres::CHEMIN_CONNEXION);	

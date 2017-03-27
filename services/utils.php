@@ -1,7 +1,19 @@
 <?php
 
+/**
+ * Classe statique contenant des fonctions utiles à l'application ebook
+ *
+ * version     : 1.0.0
+ * @author     Vibey Cédric (cedric.vibey@gmail.com)
+ */
 class Utils {
     
+  /**
+   * Copie tout le contenu d'un répertoire vers un autre répertoire de manière récursive
+   *
+   * @param      string  $dir2copy   Chemin du dossier à copier
+   * @param      string  $dir_paste  Chemin du dossier à coller
+   */
   public static function copy_dir ($dir2copy,$dir_paste) {
     // On vérifie si $dir2copy est un dossier
     if (is_dir($dir2copy)) {
@@ -13,7 +25,7 @@ class Utils {
           // Si le dossier dans lequel on veut coller n'existe pas, on le créé
           if (!is_dir($dir_paste)) mkdir ($dir_paste, 0777);
    
-            // S'il s'agit d'un dossier, on relance la fonction rÃ©cursive
+            // S'il s'agit d'un dossier, on relance la fonction récursive
             if(is_dir($dir2copy.$file) && $file != '..'  && $file != '.') Utils::copy_dir ( $dir2copy.$file.'/' , $dir_paste.$file.'/' );     
               // S'il sagit d'un fichier, on le copue simplement
               elseif($file != '..'  && $file != '.') copy ( $dir2copy.$file , $dir_paste.$file );                                       
@@ -26,6 +38,17 @@ class Utils {
     }
   }
 
+  /**
+   * Zip le contenu d'un répertoire en récursif
+   *
+   * @param      string      $nom_archive          Le nom de l'archive à zipper
+   * @param      string      $adr_dossier          L'adresse du dossier à zipper
+   * @param      string      $dossier_destination  Le dossier de destination
+   * @param      ZipArchive  $zip                  L'objet contenant le zip
+   * @param      string      $dossier_base         Le dossier de base
+   *
+   * @return     boolean     True si le zip à réussi, false sinon
+   */
   public static function zipper_repertoire_recursif($nom_archive, $adr_dossier, $dossier_destination = '', $zip=null, $dossier_base = '') {    
     if($zip===null) {
       // Si l'archive n'existe toujours pas (1er passage dans la fonction, on la crée)

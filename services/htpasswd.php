@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Page permettant de générer un mot de passe crypté pour insérer dans le Htaccess et en base de données
+ *  
+ * version     : 1.0.0 
+ * @author 	   Vibey Cédric (cedric.vibey@gmail.com)
+ */
 if (isset($_POST['login']) AND isset($_POST['pass']))
 {
     $login = $_POST['login'];

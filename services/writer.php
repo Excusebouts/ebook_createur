@@ -3,16 +3,34 @@
 require_once('template.php');
 require_once('image.php');
 
+/**
+ * Classe permettant de générer le code html d'un ebook
+ *
+ * version     : 1.0.0
+ * @author     Vibey Cédric (cedric.vibey@gmail.com)
+ */
 class Writer {
 
+	// Chemin du fichier de template html
 	protected $chemin_fichier_template;
 
+	// Chemin du fichier html
 	protected $chemin_fichier;
 
+	// Titre de l'ebook
 	protected $titre;
 
+	// Tableau contenant les images de l'ebook
 	protected $images;
 
+	/**
+	 * Constructeur par défaut du générateur de code html de l'ebook
+	 *
+	 * @param      string  $chemin_fichier_template  Le chemin du fichier de template html
+	 * @param      string  $chemin_fichier           Le chemin du fichier html
+	 * @param      string  $titre                    Le titre de l'ebook
+	 * @param      array   $images                   Le tableau contenant les images de l'ebook
+	 */
 	public function __construct($chemin_fichier_template, $chemin_fichier, $titre, $images) {
 		$this->chemin_fichier_template = $chemin_fichier_template;
 		$this->chemin_fichier = $chemin_fichier;
@@ -20,6 +38,9 @@ class Writer {
 		$this->images = $images;
 	}	
 
+	/**
+	 * Génère le code html de l'ebook
+	 */
 	public function ecrireFichier() {		
 		$fichier_template = fopen($this->chemin_fichier_template,'r+');
 		$fichier = fopen($this->chemin_fichier,'w+');
@@ -50,6 +71,11 @@ class Writer {
 		fclose($fichier_template);
 	}
 
+	/**
+	 * Génère le code html du titre de l'ebook
+	 *
+	 * @return     string  Le code html du titre généré
+	 */
 	private function genererTitre() {
 		$chaine_tmp = "";
 
@@ -60,6 +86,11 @@ class Writer {
 		return $chaine_tmp;
 	}	
 
+	/**
+	 * Génère le code html pour l'affichage des vignettes de l'ebook
+	 *
+	 * @return     string  Le code html des vignettes généré
+	 */
 	private function genererThumbnails() {
 		$chaine_tmp = "";
 
@@ -87,18 +118,15 @@ class Writer {
 		return $chaine_tmp;
 	}
 
-	private function genererImageThumbnails($image) {
-		$chaine_tmp = "";
-
-		$chaine_tmp .= Template::TEMPLATE_WRITER_THUMBNAILS_IMG_PARTIE_1;
-		$chaine_tmp .= $image->getNomThumb();
-		$chaine_tmp .= Template::TEMPLATE_WRITER_THUMBNAILS_IMG_PARTIE_2;
-		$chaine_tmp .= $image->getPage();
-		$chaine_tmp .= Template::TEMPLATE_WRITER_THUMBNAILS_IMG_PARTIE_3;		
-
-		return $chaine_tmp;
-	}
-
+	/**
+	 * Génère le code html pour un ensemble de vignettes
+	 *
+	 * @param      string  $li                Type de balise li à générer
+	 * @param      image   $image             L'image dont le code html est à générer
+	 * @param      image   $image_optionnel   La deuxième image dont le code html est à générer
+	 *
+	 * @return     string  Le code html des deux images générés
+	 */
 	private function genererImagesThumbnails($li, $image, $image_optionnel = null) {
 		$chaine_tmp = "";
 
@@ -123,6 +151,30 @@ class Writer {
 		return $chaine_tmp;
 	}
 
+	/**
+	 * Génère le code html pour une vignette
+	 *
+	 * @param      image  $image  L'image dont le code html est à générer
+	 *
+	 * @return     string  Le code html de l'image généré
+	 */
+	private function genererImageThumbnails($image) {
+		$chaine_tmp = "";
+
+		$chaine_tmp .= Template::TEMPLATE_WRITER_THUMBNAILS_IMG_PARTIE_1;
+		$chaine_tmp .= $image->getNomThumb();
+		$chaine_tmp .= Template::TEMPLATE_WRITER_THUMBNAILS_IMG_PARTIE_2;
+		$chaine_tmp .= $image->getPage();
+		$chaine_tmp .= Template::TEMPLATE_WRITER_THUMBNAILS_IMG_PARTIE_3;		
+
+		return $chaine_tmp;
+	}
+
+	/**
+	 * Génère le code html pour le nombre de pages de l'ebook
+	 *
+	 * @return     string  le code html du nombre de pages généré
+	 */
 	private function genererNbPages() {
 		$chaine_tmp = "";
 

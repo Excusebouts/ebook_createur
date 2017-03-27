@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Classe statique contenant les paramètres de l'application ebook
+ *
+ * version     : 1.0.0
+ * @author     Vibey Cédric (cedric.vibey@gmail.com)
+ */
 class Parametres {
 
 	const BDD_URL = "localhost";
