@@ -10,16 +10,16 @@ class Parametres {
 
 	const BDD_URL = "localhost";
 
-	const BDD_NOM = "ebook_createur";
+	const BDD_NOM = "ebook";
 
-	const BDD_UTILISATEUR = "root";
+	const BDD_UTILISATEUR = "ebook";
 
-	const BDD_PASS = "123456";
+	const BDD_PASS = "*MDP4eleclivretronique*";
 
 	const URL_HTTP = "http://";
 
 	const DOSSIER_EBOOK = "..".Parametres::DOSSIER_EBOOK_NOM;
-
+	
 	const DOSSIER_EBOOK_NOM = "/".Parametres::DOSSIER_EBOOK_NOM_SANS_SLASH; 
 
 	const DOSSIER_EBOOK_NOM_SANS_SLASH = "ebook/";

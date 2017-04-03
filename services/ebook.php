@@ -14,31 +14,31 @@ require_once('pdf.php');
  */
 class Ebook {
 
-	// Contient le titre de l'ebook
+	// Le titre de l'ebook
 	protected $titre;
 
-	// Contient une liste d'images affiché dans l'ebook
+	// Une liste d'images affiché dans l'ebook
 	protected $images = array();
 
-	// Contient l'endroit où se situe l'ebook
+	// L'endroit où se situe l'ebook
 	protected $chemin;
 
-	// Contient le nom du zip de l'ebook
+	// Le nom du zip de l'ebook
 	protected $nom_zip;
 
-	// Contient l'endroit où se situe le zip de l'ebook
+	// L'endroit où se situe le zip de l'ebook
 	protected $chemin_zip;
 
-	// Contient l'endroit où se situe le html d'affichage du ebook
+	// L'endroit où se situe le html d'affichage du ebook
 	protected $index;
 
-	// Contient l'endroit où se situe le template html de l'ebook
+	// L'endroit où se situe le template html de l'ebook
 	protected $index_template;	
 
-	// Contient l'objet qui permet d'écrire à l'intérieur du template
+	// L'objet qui permet d'écrire à l'intérieur du template
 	protected $writer;
 
-	// Contient l'objet qui permet de générer un pdf
+	// L'objet qui permet de générer un pdf
 	protected $pdf;
 
 	/**

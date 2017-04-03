@@ -10,19 +10,19 @@ require_once('parametres.php');
  */
 class Session {
 
-	// Contient l'id de session
+	// Id de session
 	protected $id;
 
-	// Contient le pseudo de session
+	// Pseudo de session
 	protected $pseudo;
 
-	// Contient le mot de passe de session
+	// Mot de passe de session
 	protected $mot_de_passe;
 
 	// Contient si oui ou non l'utilisateur est connecté
 	protected $connecte;
 
-	// Contient le lien vers la base de données
+	// Lien vers la base de données
 	protected $bdd;
 
 	/**

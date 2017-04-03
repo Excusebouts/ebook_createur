@@ -5,6 +5,6 @@ pass VARCHAR(256) NOT NULL,
 date_ajout TIMESTAMP
 ) 
 
-INSERT INTO Utilisateur (pseudo,motdepasse,dateajout)
+INSERT INTO Utilisateur (pseudo,pass,date_ajout)
 VALUES ("test","$1$ATcPJ.g6$0xCaaYe19OPLXKBYmlWsY/",SYSDATE());
 

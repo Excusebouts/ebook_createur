@@ -33,7 +33,7 @@ class Pdf {
 	 */
 	public function __construct($images = null, $chemin, $titre) {		
 		$this->images = $images;
-		$this->chemin_pdf = $chemin.Parametres::FICHIER_PDF;
+		$this->chemin_pdf = $_SERVER['DOCUMENT_ROOT'].Parametres::DOSSIER_EBOOK_NOM_SANS_SLASH.$titre.'/'.Parametres::FICHIER_PDF;	
 		$this->titre = $titre;
 		$this->pdf = null;
 	}
